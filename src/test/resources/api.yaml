@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+    post:
+      tags:
+        - Users
+      description: Echo back the user specified in the request
+      parameters:
+        - name: user
+          description: The user
+          in: body
+          required: true
+          schema:
+            $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Echo the request inputs
+components:
+  schemas:
+    User:
+      required:
+        - firstname
+        - lastname
+      properties:
+        firstname:
+          type: string
+          example: "Carmine"
+        lastname:
+          type: string
+          example: "Luppertazzi"
